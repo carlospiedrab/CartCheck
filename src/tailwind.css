@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/*
+ * Tokens de Tailwind enlazados a las variables CSS definidas en `styles.scss` (:root).
+ * `inline` hace que las utilidades usen `var(--cc-*)` directamente, sin duplicar valores.
+ */
+@theme inline {
+  --color-primary: var(--cc-primary);
+  --color-on-primary: var(--cc-on-primary);
+  --color-background: var(--cc-background);
+  --color-surface: var(--cc-surface);
+  --color-ink: var(--cc-ink);
+  --color-ink-soft: var(--cc-ink-soft);
+  --color-ink-muted: var(--cc-ink-muted);
+  --color-ink-faint: var(--cc-ink-faint);
+  --color-line: var(--cc-line);
+  --color-line-strong: var(--cc-line-strong);
+  --color-chip: var(--cc-chip);
+  --color-track: var(--cc-track);
+  --color-danger: var(--cc-danger);
+  --color-danger-container: var(--cc-danger-container);
+
+  --font-sans: var(--cc-font-sans);
+  --font-display: var(--cc-font-display);
+}

@@ -1,1 +1,190 @@
-/* You can add global styles to this file, and also import other style files */
+// Estilos globales de CartCheck.
+//
+// Orden de carga (angular.json): `tailwind.css` → `styles.scss`.
+// Tailwind v4 coloca preflight y utilidades dentro de `@layer base/utilities`; los estilos de
+// Angular Material no usan capas, así que siempre tienen prioridad sobre el preflight y Tailwind
+// nunca pisa los controles de Material. Las personalizaciones de Material se hacen con los
+// mixins `*-overrides` (tokens), no con utilidades de Tailwind.
+@use '@angular/material' as mat;
+@use './theme/theme-colors' as palettes;
+
+// Única fuente de verdad de los colores de marca. Tailwind los consume en `tailwind.css`
+// mediante `@theme inline` y Material mediante `mat.theme-overrides`.
+:root {
+  --cc-primary: #1f6b43;
+  --cc-on-primary: #ffffff;
+  --cc-background: #f4f5f0;
+  --cc-surface: #ffffff;
+  --cc-ink: #1b1f1c;
+  --cc-ink-soft: #3d4a41;
+  --cc-ink-muted: #56625a;
+  --cc-ink-faint: #6b756e;
+  --cc-line: #e1e5dc;
+  --cc-line-strong: #c9d0c4;
+  --cc-chip: #e3e8df;
+  --cc-track: #dde3d8;
+  --cc-danger: #9a3412;
+  --cc-on-danger: #ffffff;
+  --cc-danger-container: #fbede6;
+
+  --cc-font-sans: 'Inter', system-ui, sans-serif;
+  --cc-font-display: 'Space Grotesk', 'Inter', sans-serif;
+}
+
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: palettes.$primary-palette,
+        tertiary: palettes.$tertiary-palette,
+      ),
+      typography: (
+        plain-family: var(--cc-font-sans),
+        brand-family: var(--cc-font-sans),
+      ),
+      density: 0,
+    )
+  );
+
+  // El tono 40 generado coincide con #1F6B43, pero se fijan los roles clave a las variables
+  // para que Material y Tailwind compartan exactamente los mismos valores.
+  @include mat.theme-overrides(
+    (
+      primary: var(--cc-primary),
+      on-primary: var(--cc-on-primary),
+      error: var(--cc-danger),
+      on-error: var(--cc-on-danger),
+      background: var(--cc-background),
+      on-background: var(--cc-ink),
+      on-surface: var(--cc-ink),
+    )
+  );
+
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: var(--cc-primary),
+      track-color: var(--cc-track),
+      active-indicator-height: 6px,
+      track-height: 6px,
+      track-shape: 999px,
+    )
+  );
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--cc-background);
+  color: var(--cc-ink);
+  font-family: var(--cc-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+// ---------------------------------------------------------------------------
+// Variantes de controles de Material usadas en la app (vía tokens).
+// ---------------------------------------------------------------------------
+
+// Campos del formulario: 48px de alto (densidad −2) y esquinas de 10px como en el prototipo.
+.cc-form-fields {
+  @include mat.form-field-overrides(
+    (
+      container-height: 48px,
+      container-vertical-padding: 12px,
+      outlined-container-shape: 10px,
+      container-text-size: 15px,
+    )
+  );
+  @include mat.select-overrides(
+    (
+      trigger-text-size: 15px,
+    )
+  );
+}
+
+// Botón principal "Agregar".
+.cc-button-primary {
+  @include mat.button-overrides(
+    (
+      filled-container-shape: 12px,
+      filled-container-height: 48px,
+      filled-label-text-size: 16px,
+      filled-label-text-weight: 600,
+    )
+  );
+}
+
+// Botón de contorno de acción destructiva ("Limpiar lista").
+.cc-button-danger-outlined {
+  @include mat.button-overrides(
+    (
+      outlined-container-shape: 10px,
+      outlined-container-height: 36px,
+      outlined-horizontal-padding: 12px,
+      outlined-label-text-color: var(--cc-danger),
+      outlined-label-text-weight: 600,
+      outlined-outline-color: var(--cc-line-strong),
+      outlined-state-layer-color: var(--cc-danger),
+      outlined-ripple-color: color-mix(in srgb, var(--cc-danger) 12%, transparent),
+    )
+  );
+}
+
+// Botón relleno de acción destructiva (confirmación del diálogo).
+.cc-button-danger-filled {
+  @include mat.button-overrides(
+    (
+      filled-container-color: var(--cc-danger),
+      filled-label-text-color: var(--cc-on-danger),
+      filled-label-text-weight: 600,
+    )
+  );
+}
+
+// Botones − / + del selector de cantidad: cuadrados de 44px con borde (como el prototipo).
+// Se combina con `.mat-mdc-icon-button` para ganar en especificidad a los estilos del
+// componente, que Material inyecta en tiempo de ejecución después de los globales.
+.mat-mdc-icon-button.cc-icon-button-stepper {
+  @include mat.icon-button-overrides(
+    (
+      container-shape: 10px,
+      state-layer-size: 44px,
+      icon-color: var(--cc-primary),
+      state-layer-color: var(--cc-primary),
+    )
+  );
+  background-color: var(--cc-surface);
+  border: 1px solid var(--cc-line-strong);
+}
+
+// Botón de papelera de cada fila: 44px con fondo terracota suave.
+.mat-mdc-icon-button.cc-icon-button-danger {
+  @include mat.icon-button-overrides(
+    (
+      container-shape: 10px,
+      state-layer-size: 44px,
+      icon-color: var(--cc-danger),
+      state-layer-color: var(--cc-danger),
+      ripple-color: color-mix(in srgb, var(--cc-danger) 16%, transparent),
+    )
+  );
+  background-color: var(--cc-danger-container);
+}
+
+// Casilla de cada producto: la etiqueta ocupa el resto de la fila para que todo el texto
+// sea clicable (como el <label for> del prototipo).
+.cc-item-checkbox {
+  .mdc-form-field {
+    display: flex;
+    width: 100%;
+  }
+
+  .mdc-label {
+    flex: 1;
+    min-width: 0;
+    padding-inline-start: 2px;
+    cursor: pointer;
+  }
+}
