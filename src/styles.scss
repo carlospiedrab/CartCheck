@@ -11,18 +11,18 @@
 // Única fuente de verdad de los colores de marca. Tailwind los consume en `tailwind.css`
 // mediante `@theme inline` y Material mediante `mat.theme-overrides`.
 :root {
-  --cc-primary: #1f6b43;
+  --cc-primary: #245eaa;
   --cc-on-primary: #ffffff;
-  --cc-background: #f4f5f0;
+  --cc-background: #f3f4f7;
   --cc-surface: #ffffff;
-  --cc-ink: #1b1f1c;
-  --cc-ink-soft: #3d4a41;
-  --cc-ink-muted: #56625a;
-  --cc-ink-faint: #6b756e;
-  --cc-line: #e1e5dc;
-  --cc-line-strong: #c9d0c4;
-  --cc-chip: #e3e8df;
-  --cc-track: #dde3d8;
+  --cc-ink: #1a1c22;
+  --cc-ink-soft: #3d4555;
+  --cc-ink-muted: #565e6e;
+  --cc-ink-faint: #6b7281;
+  --cc-line: #dfe3ea;
+  --cc-line-strong: #c6cdd8;
+  --cc-chip: #e1e6ee;
+  --cc-track: #dbe1ea;
   --cc-danger: #9a3412;
   --cc-on-danger: #ffffff;
   --cc-danger-container: #fbede6;
@@ -49,7 +49,7 @@ html {
     )
   );
 
-  // El tono 40 generado coincide con #1F6B43, pero se fijan los roles clave a las variables
+  // El tono 40 generado coincide con #245EAA, pero se fijan los roles clave a las variables
   // para que Material y Tailwind compartan exactamente los mismos valores.
   @include mat.theme-overrides(
     (
